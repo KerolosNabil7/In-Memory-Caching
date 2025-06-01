@@ -1,9 +1,17 @@
+using In_Memory_Caching.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 //Register the in-memory caching service
 builder.Services.AddMemoryCache();
+
+//Register the SQLServer
+var DefaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(DefaultConnectionString));
 
 
 builder.Services.AddControllers();
