@@ -1,4 +1,5 @@
 using In_Memory_Caching.Data;
+using In_Memory_Caching.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ var DefaultConnectionString = builder.Configuration.GetConnectionString("Default
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(DefaultConnectionString));
 
+//Register Product service
+builder.Services.AddTransient<IProductService, ProductService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
